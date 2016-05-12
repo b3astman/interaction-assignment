@@ -1,0 +1,16 @@
+canvas {
+	float:left;
+}
+div {
+	height: 360px;
+	width: 500px;
+	border: 2px solid black;
+	border-radius: 2px;
+	background-color: #0892d0;
+	margin:10px;
+	float:right;
+}
+
+p {
+	margin:10px;
+}
