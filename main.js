@@ -48,9 +48,20 @@ Circle.prototype.collideBottom = function () {
 Circle.prototype.update = function () {
     Entity.prototype.update.call(this);
     // if hungry for a few cycles , it dies
-    if (this.timeHungry > 10) {
+    if (this.timeHungry > 25) {
         // console.log('hungry');
         this.removeFromWorld = true;
+    }
+
+    if (this.reproduce) {
+        var child = new Circle(gameEngine);
+        child.color = this.color;
+        child.radius = 4;
+        gameEngine.addEntity(child);
+        it.push(child);
+        console.log('spawn new');
+        this.reproduce = 0;
+        spawned++;
     }
 
     this.x += this.velocity.x * this.game.clockTick;
@@ -84,7 +95,7 @@ Circle.prototype.update = function () {
             if (ent.color != this.color) {
                 if (this.radius <= ent.radius) {
                     this.removeFromWorld = true;
-                    ent.radius += 1;
+                    ent.radius += 0.5;
                     ent.count++;
                     killed++;
                     // this.timeHungry += this.game.clockTick;
@@ -94,15 +105,6 @@ Circle.prototype.update = function () {
                     ent.removeFromWorld;
                     killed++;
 
-                    if (this.reproduce > 2) {
-                        var child = new Circle(gameEngine);
-                        child.color = this.color;
-                        child.radius = 4;
-                        gameEngine.addEntity(child);
-                        it.push(child);
-                        console.log('spawn new');
-                        spawned++;
-                    }
                 }
             // collsion occurs
             } else { 
